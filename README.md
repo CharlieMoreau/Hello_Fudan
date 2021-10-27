@@ -1,4 +1,4 @@
-# ⚙ 自动平安复旦脚本 pafd-automated 
+# ⚙ 自动平安复旦脚本 Hello Fudan
 ## ⭐️ 最新支持验证码的平安复旦脚本
 
 查看 [部署教程](https://github.com/ZiYang-xie/pafd-automated/tree/master/docs)
