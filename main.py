@@ -148,7 +148,7 @@ class Zlapp(Fudan):
         position = last_info["d"]["info"]['geo_api_info']
         position = json_loads(position)
 
-        print("◉上一次提交地址为:", position['formattedAddress'])
+        # pprint("◉上一次提交地址为:", position['formattedAddress'])
         # print("◉上一次提交GPS为", position["position"])
         # print(last_info)
         
