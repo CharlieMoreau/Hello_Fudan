@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ master ]
   schedule:
-    - cron:  '46 6 * * *'
+    - cron:  '0 */12 * * *'
   workflow_dispatch:
 
 jobs:
@@ -14,6 +14,7 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id
     steps:
   
       - name: Check out code
