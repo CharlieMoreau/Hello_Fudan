@@ -148,15 +148,16 @@ class Zlapp(Fudan):
         position = last_info["d"]["info"]['geo_api_info']
         position = json_loads(position)
 
-        print("◉上一次提交地址为:", position['formattedAddress'])
-        # print("◉上一次提交GPS为", position["position"])
-        # print(last_info)
+        print("◉上一次提交GPS为: ", position["position"])
+        print("◉上一次提交地址为: ", position['formattedAddress'])
+
+        print("◉上一次提交info为: ", last_info)
         
         # 改为上海时区
         os.environ['TZ'] = 'Asia/Shanghai'
         time.tzset()
         today = time.strftime("%Y%m%d", time.localtime())
-        print("◉今日日期为:", today)
+        print("◉今日日期为: ", today)
         if last_info["d"]["info"]["date"] == today:
             print("\n*******今日已提交*******")
             self.close()
@@ -207,6 +208,15 @@ class Zlapp(Fudan):
         city = self.last_info["city"]
         district = geo_api_info["addressComponent"].get("district", "")
         
+        area = " "
+        if province is city:
+            area = "".join((city, district))
+        else:
+            area = province.join((city, district))
+            
+        address = area.join("殷行街道国伟路300号爱久家园")
+            
+        
         while(True):
             print("◉正在识别验证码......")
             code = self.validate_code()
@@ -216,13 +226,14 @@ class Zlapp(Fudan):
                     "tw": "13",
                     "province": province,
                     "city": city,
-                    "area": " ".join((province, city, district)),
-                    #"sfzx": "1",  # 是否在校
+                    "area": area,
+                    "address": address,
+                    "sfzx": "1",  # 是否在校
                     #"fxyy": "",  # 返校原因
                     "code": code,
                 }
             )
-            # print(self.last_info)
+            # print("last info", self.last_info)
             save = self.session.post(
                 'https://zlapp.fudan.edu.cn/ncov/wap/fudan/save',
                 data=self.last_info,
