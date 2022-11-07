@@ -12,6 +12,8 @@ import io
 import numpy
 from PIL import Image
 from PIL import ImageEnhance
+import requests
+from requests.packages import urllib3
 
 from requests import session, post, adapters
 adapters.DEFAULT_RETRIES = 5
@@ -139,6 +141,7 @@ class Zlapp(Fudan):
         检查
         """
         print("◉检测是否已提交")
+        urllib3.disable_warnings()
         get_info = self.session.get(
             'https://zlapp.fudan.edu.cn/ncov/wap/fudan/get-info')
         last_info = get_info.json()
